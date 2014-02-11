@@ -41,11 +41,12 @@ _virtualenv_auto_activate() {
                 _VENV_NAME=$(basename $CURRENT_DIR)
                 echo Activating virtualenv \"$_VENV_NAME\"...
                 VIRTUAL_ENV_DISABLE_PROMPT=1
-                source .venv/bin/activate
+                source "$VENV_PATH/bin/activate"
                 _OLD_VIRTUAL_PS1="$PS1"
                 PS1="($_VENV_NAME)$PS1"
                 export PS1
             fi
+
             # Mark as sourced
             SOURCED=1
         else
