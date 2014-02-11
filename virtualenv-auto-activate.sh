@@ -1,3 +1,28 @@
+#!/bin/bash
+# virtualenv-auto-activate.sh
+# 
+# Installation:
+#   Add this line to your .bashrc or .bash-profile:
+#
+#       source /path/to/virtualenv-auto-activate.sh
+#
+#   Go to your project folder, run "virtualenv .venv", so your project folder
+#   has a .venv folder at the top level, next to your version control directory.
+#   For example:
+#   .
+#   ├── .git
+#   │   ├── HEAD
+#   │   ├── config
+#   │   ├── description
+#   │   ├── hooks
+#   │   ├── info
+#   │   ├── objects
+#   │   └── refs
+#   └── .venv
+#       ├── bin
+#       ├── include
+#       └── lib
+#
 #   The virtualenv will be activated automatically when you enter the directory.
 _virtualenv_auto_activate() {
     if [ -e ".venv" ]; then
