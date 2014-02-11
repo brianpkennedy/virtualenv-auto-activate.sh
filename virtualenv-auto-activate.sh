@@ -25,24 +25,33 @@
 #
 #   The virtualenv will be activated automatically when you enter the directory.
 _virtualenv_auto_activate() {
-    if [ -e ".venv" ]; then
-        # Check to see if already activated to avoid redundant activating
-        DIR="$(pwd -P)/.venv"
-	# Make sure if .venv is a symlink itself, we look up VIRTUAL_ENV appropriately
-        READLINK="$(readlink $DIR)"
-	READLINK=${READLINK%/} 
+    CURRENT_DIR="$(pwd -P)"
+    SOURCED=0
 
+    while [ "$CURRENT_DIR" != "/" ] && [ $SOURCED -eq 0 ]; do
+        if [ -e "$CURRENT_DIR/.venv" ]; then
+            # Check to see if already activated to avoid redundant activating
+            VENV_PATH="$CURRENT_DIR/.venv"
 
-        if [ "$VIRTUAL_ENV" != "$DIR" ] && [ "$VIRTUAL_ENV" != "$READLINK" ]; then
-            _VENV_NAME=$(basename `pwd`)
-            echo Activating virtualenv \"$_VENV_NAME\"...
-            VIRTUAL_ENV_DISABLE_PROMPT=1
-            source .venv/bin/activate
-            _OLD_VIRTUAL_PS1="$PS1"
-            PS1="($_VENV_NAME)$PS1"
-            export PS1
+            # Make sure if .venv is a symlink itself, we look up VIRTUAL_ENV appropriately
+            READLINK="$(readlink $VENV_PATH)"
+            READLINK=${READLINK%/}
+
+            if [ "$VIRTUAL_ENV" != "$CURRENT_DIR" ] && [ "$VIRTUAL_ENV" != "$READLINK" ]; then
+                _VENV_NAME=$(basename $CURRENT_DIR)
+                echo Activating virtualenv \"$_VENV_NAME\"...
+                VIRTUAL_ENV_DISABLE_PROMPT=1
+                source .venv/bin/activate
+                _OLD_VIRTUAL_PS1="$PS1"
+                PS1="($_VENV_NAME)$PS1"
+                export PS1
+            fi
+            # Mark as sourced
+            SOURCED=1
+        else
+            CURRENT_DIR="$(dirname $CURRENT_DIR)"
         fi
-    fi
+    done
 }
 
 export PROMPT_COMMAND="_virtualenv_auto_activate; $PROMPT_COMMAND"
