@@ -1,7 +1,7 @@
 virtualenv-auto-activate.sh
 ===========================
 
-Automatically source your Python virtualenv when you enter a directory. In your project root, name your virutal environement .venv, and this script will automatically source it for you when you enter into that directory.
+Automatically source your Python virtualenv when you enter a directory. In your project root, name your virutal environment .venv, and this script will automatically source it for you when you enter into that directory.
 
 Credit to [@codysoyland](https://github.com/codysoyland) for the original [gist](https://gist.github.com/codysoyland/2198913) of this solution. 
 
