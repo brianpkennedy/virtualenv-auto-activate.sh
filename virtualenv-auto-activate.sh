@@ -5,7 +5,7 @@ _virtualenv_auto_activate() {
         DIR="$(pwd -P)/.venv"
 	# Make sure if .venv is a symlink itself, we look up VIRTUAL_ENV appropriately
         READLINK="$(readlink $DIR)"
-		READLINK=${READLINK%/} 
+	READLINK=${READLINK%/} 
 
 
         if [ "$VIRTUAL_ENV" != "$DIR" ] && [ "$VIRTUAL_ENV" != "$READLINK" ]; then
