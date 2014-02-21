@@ -34,7 +34,7 @@ _virtualenv_auto_activate() {
             VENV_PATH="$CURRENT_DIR/.venv"
 
             # Make sure if .venv is a symlink itself, we look up VIRTUAL_ENV appropriately
-            READLINK="$(readlink $VENV_PATH)"
+            READLINK="$(readlink "$VENV_PATH")"
             READLINK=${READLINK%/}
 
             if [ "$VIRTUAL_ENV" != "$CURRENT_DIR" ] && [ "$VIRTUAL_ENV" != "$READLINK" ]; then
@@ -50,7 +50,7 @@ _virtualenv_auto_activate() {
             # Mark as sourced
             SOURCED=1
         else
-            CURRENT_DIR="$(dirname $CURRENT_DIR)"
+            CURRENT_DIR="$(dirname "$CURRENT_DIR")"
         fi
     done
 }
